@@ -1,0 +1,22 @@
+info:
+  version: '@project.version@'
+  modulo: '@project.name@'
+
+server:
+  port: 8123
+
+logging.level.root: INFO
+
+spring:
+  profiles:
+    active: default
+  api:
+    swagger-enable: true
+
+  config:
+    datasource:
+      username: postgres
+      password: postgres
+      postgres:
+          url: jdbc:postgresql://localhost:15432/postgres
+          driver-class-name: org.postgresql.Driver
