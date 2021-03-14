@@ -3,7 +3,6 @@ package souza.solzanir.georreferencia.controller;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +36,7 @@ public class AddressController {
             response = AddressResponseDTO.class
     )
     @PostMapping("/v1/address")
-    public ResponseEntity<AddressResponseDTO> save(@Validated @RequestBody final AddressRequestDTO address) {
+    public ResponseEntity<AddressResponseDTO> save(@RequestBody final AddressRequestDTO address) {
         AddressResponseDTO response = service.save(address);
         return ResponseEntity
                 .created(URI.create(format("/api/public/v1/address/%d", response.getId())))
@@ -84,7 +83,7 @@ public class AddressController {
             response = AddressResponseDTO.class
     )
     @PutMapping("/v1/address")
-    public ResponseEntity<AddressResponseDTO> update(@Validated @RequestBody final AddressRequestDTO address) {
+    public ResponseEntity<AddressResponseDTO> update(@RequestBody final AddressRequestDTO address) {
         AddressResponseDTO response = service.save(address);
         return ResponseEntity.ok().body(response);
     }

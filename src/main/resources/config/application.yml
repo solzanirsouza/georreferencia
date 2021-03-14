@@ -20,3 +20,7 @@ spring:
       postgres:
           url: jdbc:postgresql://localhost:15432/postgres
           driver-class-name: org.postgresql.Driver
+
+    google:
+      base-url: https://maps.googleapis.com/maps/api/geocode/json
+      api-key: AIzaSyCj0cY2yEvVfYhAaTz3-P2MW-YRKmhz5Uw

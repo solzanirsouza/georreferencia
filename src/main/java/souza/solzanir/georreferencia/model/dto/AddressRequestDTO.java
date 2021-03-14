@@ -4,24 +4,45 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AddressRequestDTO implements Serializable {
 
     private Long id;
-    @JsonProperty("street_name")
-    private String streetName;
-    private String number;
     private String complement;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
+
+    @JsonProperty("street_name")
+    @NotBlank(message = "O valor do campo streetName é inválido")
+    private String streetName;
+
+    @NotBlank(message = "O valor do campo number é inválido")
+    private String number;
+
+    @NotBlank(message = "O valor do campo neighbourhood é inválido")
     private String neighbourhood;
+
+    @NotBlank(message = "O valor do campo city é inválido")
     private String city;
+
+    @NotBlank(message = "O valor do campo state é inválido")
     private String state;
+
+    @NotBlank(message = "O valor do campo country é inválido")
     private String country;
+
+    @NotNull(message = "O campo zipcode é obrigatório")
+    @Min(value = 9999999, message = "O valor do campo zipcode é inválido")
+    @Max(value = 99999999, message = "O valor do campo zipcode é inválido")
     private Integer zipcode;
-    private Integer latitude;
-    private Integer longitude;
 
     public Long getId() {
         return id;
@@ -104,20 +125,20 @@ public class AddressRequestDTO implements Serializable {
         return this;
     }
 
-    public Integer getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public AddressRequestDTO setLatitude(Integer latitude) {
+    public AddressRequestDTO setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
         return this;
     }
 
-    public Integer getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 
-    public AddressRequestDTO setLongitude(Integer longitude) {
+    public AddressRequestDTO setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
         return this;
     }

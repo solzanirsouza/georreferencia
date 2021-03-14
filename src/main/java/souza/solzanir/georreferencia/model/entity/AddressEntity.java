@@ -3,6 +3,7 @@ package souza.solzanir.georreferencia.model.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity(name = "address")
@@ -18,8 +19,8 @@ public class AddressEntity implements Serializable {
     private String state;
     private String country;
     private Integer zipcode;
-    private Integer latitude;
-    private Integer longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 
     public Long getId() {
         return id;
@@ -102,20 +103,20 @@ public class AddressEntity implements Serializable {
         return this;
     }
 
-    public Integer getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public AddressEntity setLatitude(Integer latitude) {
+    public AddressEntity setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
         return this;
     }
 
-    public Integer getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 
-    public AddressEntity setLongitude(Integer longitude) {
+    public AddressEntity setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
         return this;
     }

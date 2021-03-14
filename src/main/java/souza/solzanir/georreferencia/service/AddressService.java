@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 import souza.solzanir.georreferencia.model.dto.AddressRequestDTO;
 import souza.solzanir.georreferencia.model.dto.AddressResponseDTO;
 import souza.solzanir.georreferencia.model.entity.AddressEntity;
+import souza.solzanir.georreferencia.model.vo.GeocodeVO;
 import souza.solzanir.georreferencia.repository.AddressRepository;
+import souza.solzanir.georreferencia.service.component.GoogleComponent;
 import souza.solzanir.georreferencia.util.conversors.AddressConverter;
+import souza.solzanir.georreferencia.util.validators.FieldValidator;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +20,7 @@ import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 import static souza.solzanir.georreferencia.util.conversors.AddressConverter.toDTO;
 import static souza.solzanir.georreferencia.util.conversors.AddressConverter.toEntity;
+import static souza.solzanir.georreferencia.util.validators.NumberValidator.nonValid;
 
 @Service
 public class AddressService {
@@ -25,8 +29,16 @@ public class AddressService {
     @Autowired
     private AddressRepository repository;
 
+    @Autowired
+    private GoogleComponent component;
+
+    @Autowired
+    private FieldValidator validator;
+
     public AddressResponseDTO save(AddressRequestDTO address) {
         logger.info(format("Saving a new address at street %s", address.getStreetName()));
+        validator.validate(address);
+        getGeocode(address);
         AddressEntity entity = repository.save(toEntity(address));
         return toDTO(entity);
     }
@@ -46,5 +58,20 @@ public class AddressService {
     public void delete(Long addressId) {
         logger.info(format("Deleting address by id %d", addressId));
         repository.deleteById(addressId);
+    }
+
+    private void getGeocode(AddressRequestDTO address) {
+        
+        if (nonValid(address.getLatitude(), true) || nonValid(address.getLongitude(), true)) {
+            GeocodeVO geocode = component.getGeocode(
+                    address.getStreetName(),
+                    address.getNumber(),
+                    address.getCity(),
+                    address.getState());
+
+            address
+                    .setLatitude(geocode.getLatitude())
+                    .setLongitude(geocode.getLongitude());
+        }
     }
 }
