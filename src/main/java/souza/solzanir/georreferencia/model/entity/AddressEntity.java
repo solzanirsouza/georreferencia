@@ -1,15 +1,17 @@
 package souza.solzanir.georreferencia.model.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity(name = "address")
 public class AddressEntity implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String streetName;
     private String number;
@@ -19,8 +21,8 @@ public class AddressEntity implements Serializable {
     private String state;
     private String country;
     private Integer zipcode;
-    private BigDecimal latitude;
-    private BigDecimal longitude;
+    private String latitude;
+    private String longitude;
 
     public Long getId() {
         return id;
@@ -103,20 +105,20 @@ public class AddressEntity implements Serializable {
         return this;
     }
 
-    public BigDecimal getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public AddressEntity setLatitude(BigDecimal latitude) {
+    public AddressEntity setLatitude(String latitude) {
         this.latitude = latitude;
         return this;
     }
 
-    public BigDecimal getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public AddressEntity setLongitude(BigDecimal longitude) {
+    public AddressEntity setLongitude(String longitude) {
         this.longitude = longitude;
         return this;
     }

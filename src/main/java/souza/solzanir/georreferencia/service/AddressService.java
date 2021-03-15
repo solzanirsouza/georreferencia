@@ -13,11 +13,13 @@ import souza.solzanir.georreferencia.service.component.GoogleComponent;
 import souza.solzanir.georreferencia.util.conversors.AddressConverter;
 import souza.solzanir.georreferencia.util.validators.FieldValidator;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
+import static org.apache.logging.log4j.util.Strings.isBlank;
 import static souza.solzanir.georreferencia.util.conversors.AddressConverter.toDTO;
 import static souza.solzanir.georreferencia.util.conversors.AddressConverter.toEntity;
 import static souza.solzanir.georreferencia.util.validators.NumberValidator.nonValid;
@@ -61,8 +63,8 @@ public class AddressService {
     }
 
     private void getGeocode(AddressRequestDTO address) {
-        
-        if (nonValid(address.getLatitude(), true) || nonValid(address.getLongitude(), true)) {
+
+        if (isBlank(address.getLatitude()) || isBlank(address.getLongitude()) || invalidValues(address)) {
             GeocodeVO geocode = component.getGeocode(
                     address.getStreetName(),
                     address.getNumber(),
@@ -70,8 +72,13 @@ public class AddressService {
                     address.getState());
 
             address
-                    .setLatitude(geocode.getLatitude())
-                    .setLongitude(geocode.getLongitude());
+                    .setLatitude(geocode.getLatitude().toString())
+                    .setLongitude(geocode.getLongitude().toString());
         }
+    }
+
+    private boolean invalidValues(AddressRequestDTO address) {
+        return nonValid(new BigDecimal(address.getLatitude()), false, true)
+                || nonValid(new BigDecimal(address.getLongitude()), false, true);
     }
 }

@@ -9,7 +9,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -17,8 +16,8 @@ public class AddressRequestDTO implements Serializable {
 
     private Long id;
     private String complement;
-    private BigDecimal latitude;
-    private BigDecimal longitude;
+    private String latitude;
+    private String longitude;
 
     @JsonProperty("street_name")
     @NotBlank(message = "O valor do campo streetName é inválido")
@@ -125,20 +124,20 @@ public class AddressRequestDTO implements Serializable {
         return this;
     }
 
-    public BigDecimal getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public AddressRequestDTO setLatitude(BigDecimal latitude) {
+    public AddressRequestDTO setLatitude(String latitude) {
         this.latitude = latitude;
         return this;
     }
 
-    public BigDecimal getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public AddressRequestDTO setLongitude(BigDecimal longitude) {
+    public AddressRequestDTO setLongitude(String longitude) {
         this.longitude = longitude;
         return this;
     }

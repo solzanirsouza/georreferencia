@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -21,8 +20,8 @@ public class AddressResponseDTO implements Serializable {
     private String state;
     private String country;
     private Integer zipcode;
-    private BigDecimal latitude;
-    private BigDecimal longitude;
+    private String latitude;
+    private String longitude;
 
     public Long getId() {
         return id;
@@ -105,20 +104,20 @@ public class AddressResponseDTO implements Serializable {
         return this;
     }
 
-    public BigDecimal getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public AddressResponseDTO setLatitude(BigDecimal latitude) {
+    public AddressResponseDTO setLatitude(String latitude) {
         this.latitude = latitude;
         return this;
     }
 
-    public BigDecimal getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public AddressResponseDTO setLongitude(BigDecimal longitude) {
+    public AddressResponseDTO setLongitude(String longitude) {
         this.longitude = longitude;
         return this;
     }

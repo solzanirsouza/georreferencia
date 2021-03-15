@@ -18,7 +18,7 @@ spring:
       username: postgres
       password: postgres
       postgres:
-          url: jdbc:postgresql://localhost:15432/postgres
+          url: jdbc:postgresql://192.168.15.7:15432/postgres
           driver-class-name: org.postgresql.Driver
 
     google:
