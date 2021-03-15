@@ -24,10 +24,10 @@ Se estiver usando Linux execute o comando ``ifconfig`` para verificar o respecti
 
 ### Criação dos Contêineres
 
-Ainda na raiz do projeto, existe um diretório com o nome de "outros", dentro dele existe o arquivo "docker-compose.yml",
+Ainda na raiz do projeto, existe um diretório com o nome de "outros", dentro dele existe o arquivo "docker-compose.yml" onde
 este arquivo cria dois contêineres, o da própria aplicação e outro do postgres para gravação dos dados.
 
-Na pasta outros execute o seguite comando:
+Na pasta "outros" execute o seguite comando:
 ```
 sudo docker-compose up -d
 ```
